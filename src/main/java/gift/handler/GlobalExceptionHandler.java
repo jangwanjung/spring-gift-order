@@ -1,6 +1,7 @@
 package gift.handler;
 
 import gift.exception.AuthenticationException;
+import gift.exception.KakaoApiException;
 import gift.exception.WishListAccessDeniedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -52,6 +53,22 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.FORBIDDEN)
                 .body(e.getMessage());
     }
+
+    @ExceptionHandler(KakaoApiException.class)
+    public ResponseEntity<String> handleKakaoApiException(KakaoApiException e) {
+        return switch (e.getErrorType()) {
+            case CLIENT_ERROR -> ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("잘못된 카카오 로그인 요청입니다");
+            case SERVER_ERROR -> ResponseEntity.status(HttpStatus.BAD_GATEWAY)
+                    .body("카카오 서버에 일시적 문제가 발생했습니다");
+            case NETWORK_ERROR -> ResponseEntity.status(HttpStatus.BAD_GATEWAY)
+                    .body("카카오 서비스 연결에 실패했습니다");
+            case PARSE_ERROR -> ResponseEntity.status(HttpStatus.BAD_GATEWAY)
+                    .body("카카오 응답 처리 중 오류가 발생했습니다");
+        };
+    }
+
+
 
 
 
