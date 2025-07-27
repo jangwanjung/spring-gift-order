@@ -7,7 +7,6 @@ import gift.dto.TokenResponseDto;
 import gift.service.KakaoApiService;
 import gift.service.MemberService;
 import gift.util.JwtUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

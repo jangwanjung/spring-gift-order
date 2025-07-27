@@ -1,13 +1,10 @@
 package gift.service;
 
 import gift.dto.MemberRequestDto;
-import gift.dto.TokenResponseDto;
 import gift.entity.Member;
 import gift.repository.MemberRepository;
 import gift.util.JwtUtil;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Optional;
 

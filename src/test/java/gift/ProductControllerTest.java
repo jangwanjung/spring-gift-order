@@ -3,7 +3,6 @@ package gift;
 import gift.dto.OptionRequestDto;
 import gift.dto.ProductRequestDto;
 import gift.dto.ProductResponseDto;
-import gift.entity.Option;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
@@ -14,7 +13,6 @@ import org.springframework.web.client.RestClient;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
@@ -96,7 +94,6 @@ public class ProductControllerTest {
 
                 ).satisfies(ex->{
                     String responseBody = ex.getResponseBodyAsString();
-                    System.out.println(responseBody);
                     assert(responseBody.contains("상품명"));
                         }
                 );
@@ -120,7 +117,6 @@ public class ProductControllerTest {
 
                 ).satisfies(ex->{
                             String responseBody = ex.getResponseBodyAsString();
-                            System.out.println(responseBody);
                             assert(responseBody.contains("카카오"));
                         }
                 );
@@ -143,7 +139,6 @@ public class ProductControllerTest {
 
                 ).satisfies(ex->{
                             String responseBody = ex.getResponseBodyAsString();
-                            System.out.println(responseBody);
                             assert(responseBody.contains("특수문자"));
                         }
                 );
@@ -167,7 +162,6 @@ public class ProductControllerTest {
 
                 ).satisfies(ex->{
                             String responseBody = ex.getResponseBodyAsString();
-                            System.out.println(responseBody);
                             assert(responseBody.contains("양수"));
                         }
                 );
@@ -191,7 +185,6 @@ public class ProductControllerTest {
 
                 ).satisfies(ex->{
                             String responseBody = ex.getResponseBodyAsString();
-                            System.out.println(responseBody);
                             assert(responseBody.contains("옵션"));
                         }
                 );

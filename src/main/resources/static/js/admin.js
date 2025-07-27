@@ -19,8 +19,8 @@ document.getElementById("create-product-form").addEventListener("submit", async 
         alert("상품이 등록되었습니다!");
         window.location.reload();
     } else {
-        const errorMessage = await response.text(); // 응답 본문 받아오기
-        alert("등록에 실패했습니다 : " + errorMessage); // 서버 메시지 표시
+        const errorMessage = await response.text();
+        alert("등록에 실패했습니다 : " + errorMessage);
     }
 });
 
@@ -48,7 +48,7 @@ document.getElementById("patch-product-form").addEventListener("submit", async f
         alert("상품이 수정되었습니다");
         window.location.reload();
     } else {
-        const errorMessage = await response.text(); // 응답 본문 받아오기
+        const errorMessage = await response.text();
         alert("수정에 실패했습니다. : "+ errorMessage );
     }
 });

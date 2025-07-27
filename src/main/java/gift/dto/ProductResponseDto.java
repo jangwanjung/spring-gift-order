@@ -19,7 +19,6 @@ public class ProductResponseDto {
         this.price = price;
         this.imageUrl = imageUrl;
         this.options = options;
-
     }
 
     public Long getId() {
@@ -45,6 +44,4 @@ public class ProductResponseDto {
     public static ProductResponseDto from(Product product) {
         return new ProductResponseDto(product.getId(), product.getName(), product.getPrice(), product.getImageUrl(), product.getOptions());
     }
-
-
 }

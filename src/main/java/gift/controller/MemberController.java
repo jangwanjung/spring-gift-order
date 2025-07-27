@@ -1,21 +1,17 @@
 package gift.controller;
 
-import gift.dto.KakaoTokensResponseDto;
-import gift.dto.KakaoUserInfoResponseDto;
 import gift.dto.MemberRequestDto;
 import gift.dto.TokenResponseDto;
-import gift.service.KakaoApiService;
 import gift.service.MemberService;
 import gift.util.JwtUtil;
 import jakarta.validation.Valid;
-import org.apache.coyote.Response;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.lang.reflect.Member;
-import java.sql.SQLOutput;
 
 @RestController
 @RequestMapping("/api/members")

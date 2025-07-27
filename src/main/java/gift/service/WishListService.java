@@ -5,9 +5,6 @@ import gift.dto.WishListResponseDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import java.nio.file.AccessDeniedException;
-import java.util.List;
-
 public interface WishListService {
 
     Page<WishListResponseDto> getWishListByMemberId(Long memberId, Pageable pageable);

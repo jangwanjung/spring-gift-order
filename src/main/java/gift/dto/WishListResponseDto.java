@@ -32,16 +32,16 @@ public class WishListResponseDto {
     public Integer getQuantity(){
         return quantity;
     }
+
     public String getName(){
         return name;
     }
-    public long getPrice(){
 
+    public long getPrice(){
         return price;
     }
+
     public String getImageUrl(){
         return imageUrl;
     }
-
-
 }
