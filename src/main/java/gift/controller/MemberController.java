@@ -23,15 +23,11 @@ public class MemberController {
 
     private final MemberService memberService;
     private final JwtUtil jwtUtil;
-    private final KakaoApiService kakaoApiService;
 
-    @Value("${kakao.member.password}")
-    private String kakaoMamberPassword;
 
-    public MemberController(MemberService memberService, JwtUtil jwtUtil, KakaoApiService kakaoApiService) {
+    public MemberController(MemberService memberService, JwtUtil jwtUtil) {
         this.memberService = memberService;
         this.jwtUtil = jwtUtil;
-        this.kakaoApiService = kakaoApiService;
     }
 
     @PostMapping("/register")
@@ -51,18 +47,5 @@ public class MemberController {
         return ResponseEntity.ok(new TokenResponseDto(token));
     }
 
-    @GetMapping("/login")
-    public ResponseEntity<TokenResponseDto> login(@RequestParam String code){
 
-        KakaoTokensResponseDto kakaoTokens = kakaoApiService.getKakaoTokens(code);
-        KakaoUserInfoResponseDto kakaoUserInfo = kakaoApiService.getKakaoUserInfo(kakaoTokens.getAccessToken());
-        String email = kakaoUserInfo.getId().toString()+ "@kakao.com";
-        MemberRequestDto memberRequestDto = new MemberRequestDto(email,kakaoMamberPassword);
-
-        if(!memberService.existMember(memberRequestDto)) {
-            memberService.saveMember(memberRequestDto);
-        }
-        String token = jwtUtil.generateToken(memberRequestDto);
-        return ResponseEntity.ok(new TokenResponseDto(token));
-    }
 }
