@@ -10,6 +10,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.retry.annotation.Backoff;
+import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.ResourceAccessException;
@@ -35,6 +37,11 @@ public class KakaoApiServiceImpl implements KakaoApiService {
 
 
     @Override
+    @Retryable(
+            value = {KakaoApiException.class},
+            maxAttempts = 3,
+            backoff = @Backoff(delay = 2000)
+    )
     public KakaoTokensResponseDto getKakaoTokens(String code) {
         MultiValueMap<String,String> body = kakaoTokenRequestDto.makeBody(code);
 
@@ -61,6 +68,11 @@ public class KakaoApiServiceImpl implements KakaoApiService {
     }
 
     @Override
+    @Retryable(
+            value = {KakaoApiException.class},
+            maxAttempts = 3,
+            backoff = @Backoff(delay = 2000)
+    )
     public KakaoUserInfoResponseDto getKakaoUserInfo(String accessToken) {
 
         try {
