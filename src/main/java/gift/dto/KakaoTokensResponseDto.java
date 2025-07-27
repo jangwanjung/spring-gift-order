@@ -33,6 +33,26 @@ public class KakaoTokensResponseDto {
         this.tokenType = tokenType;
     }
 
+    public String getTokenType() {
+        return tokenType;
+    }
+
+    public Integer getExpiresIn() {
+        return expiresIn;
+    }
+
+    public String getRefreshToken() {
+        return refreshToken;
+    }
+
+    public Integer getRefreshTokenExpiresIn() {
+        return refreshTokenExpiresIn;
+    }
+
+    public String getScope() {
+        return scope;
+    }
+
     public void setAccessToken(String accessToken) {
         this.accessToken = accessToken;
     }

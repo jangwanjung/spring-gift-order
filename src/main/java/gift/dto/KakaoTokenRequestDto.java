@@ -10,7 +10,7 @@ import java.util.HashMap;
 @Component
 public class KakaoTokenRequestDto {
 
-    @Value("${kakao.api.key}")
+    @Value("${kakao.api-key}")
     private String kakaoApiKey;
 
     public MultiValueMap<String, String> makeBody(String code){

@@ -1,10 +1,12 @@
 package gift.service;
 
+import gift.config.KakaoProperties;
 import gift.dto.KakaoTokenRequestDto;
 import gift.dto.KakaoTokensResponseDto;
 import gift.dto.KakaoUserInfoResponseDto;
 import gift.exception.KakaoApiException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatusCode;
@@ -20,20 +22,21 @@ import org.springframework.web.client.RestClient;
 @Service
 public class KakaoApiServiceImpl implements KakaoApiService {
 
-    private final static String KAKAO_API_URL = "https://kauth.kakao.com/oauth/token";
-    private final static String KAKAO_USER_INFO_URL = "https://kapi.kakao.com/v2/user/me";
-
-
-    private final RestClient restClient = RestClient.builder()
-            .requestFactory(new HttpComponentsClientHttpRequestFactory() {{
-                setConnectTimeout(5000);  // 5초
-                setReadTimeout(10000);    // 10초
-            }})
-            .build();
-
+    private final RestClient restClient;
 
     @Autowired
     private KakaoTokenRequestDto kakaoTokenRequestDto;
+    @Autowired
+    private KakaoProperties kakaoProperties;
+
+    public KakaoApiServiceImpl(KakaoProperties kakaoProperties) {
+        this.restClient = RestClient.builder()
+                .requestFactory(new HttpComponentsClientHttpRequestFactory() {{
+                    setConnectTimeout(kakaoProperties.getConnectTimeout());
+                    setReadTimeout(kakaoProperties.getReadTimeout());
+                }})
+                .build();
+    }
 
 
     @Override
@@ -47,7 +50,7 @@ public class KakaoApiServiceImpl implements KakaoApiService {
 
         try {
             return restClient.post()
-                    .uri(KAKAO_API_URL)
+                    .uri(kakaoProperties.getApiUrl())
                     .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                     .accept(MediaType.APPLICATION_JSON)
                     .body(body)
@@ -77,7 +80,7 @@ public class KakaoApiServiceImpl implements KakaoApiService {
 
         try {
             return restClient.post()
-                    .uri(KAKAO_USER_INFO_URL)
+                    .uri(kakaoProperties.getUserInfoUrl())
                     .header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken)
                     .accept(MediaType.APPLICATION_JSON)
                     .retrieve()

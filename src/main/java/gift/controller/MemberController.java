@@ -54,7 +54,6 @@ public class MemberController {
     @GetMapping("/login")
     public ResponseEntity<TokenResponseDto> login(@RequestParam String code){
 
-
         KakaoTokensResponseDto kakaoTokens = kakaoApiService.getKakaoTokens(code);
         KakaoUserInfoResponseDto kakaoUserInfo = kakaoApiService.getKakaoUserInfo(kakaoTokens.getAccessToken());
         String email = kakaoUserInfo.getId().toString()+ "@kakao.com";
