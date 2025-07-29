@@ -1,7 +1,6 @@
 package gift.service;
 
 import gift.dto.MemberRequestDto;
-import gift.dto.TokenResponseDto;
 import gift.entity.Member;
 
 import java.util.Optional;

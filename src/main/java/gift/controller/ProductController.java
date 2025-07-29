@@ -26,9 +26,7 @@ public class ProductController {
 
     @PostMapping
     public ResponseEntity<ProductResponseDto> createProduct(@Valid @RequestBody ProductRequestDto requestDto) {
-
         return ResponseEntity.ok(productService.saveProduct(requestDto));
-
     }
 
     @GetMapping
@@ -44,7 +42,6 @@ public class ProductController {
 
     @PatchMapping("/{id}")
     public ResponseEntity<ProductResponseDto> updateProduct(@PathVariable Long id, @Valid @RequestBody ProductRequestDto requestDto) {
-
         return ResponseEntity.ok(productService.updateProduct(id, requestDto));
     }
 
@@ -52,6 +49,4 @@ public class ProductController {
     public ResponseEntity<List<OptionResponseDto>> getProductOptions(@PathVariable Long id) {
         return ResponseEntity.ok(productService.findOptionsByProductId(id));
     }
-
-
 }

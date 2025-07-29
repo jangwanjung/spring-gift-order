@@ -13,6 +13,11 @@ public class MemberRequestDto {
     public MemberRequestDto() {
         this.role = "USER";
     }
+    public MemberRequestDto(String email, String password) {
+        this.email = email;
+        this.password = password;
+        this.role = "USER";
+    }
 
 
     public String getEmail() {

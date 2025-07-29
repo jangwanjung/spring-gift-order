@@ -1,6 +1,5 @@
 package gift.repository;
 
-import gift.dto.TokenResponseDto;
 import gift.entity.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 

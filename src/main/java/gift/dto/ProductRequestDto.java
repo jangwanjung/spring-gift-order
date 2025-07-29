@@ -31,7 +31,6 @@ public class ProductRequestDto {
     @NotEmpty(message = "최소 1개 이상의 옵션이 필요합니다.")
     private List<OptionRequestDto> options = new ArrayList<>();
 
-
     @JsonProperty("kakaoWordAllow")
     private boolean kakaoWordAllow = false;
 

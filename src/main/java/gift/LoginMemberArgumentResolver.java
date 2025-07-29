@@ -1,6 +1,5 @@
 package gift;
 
-import gift.entity.Member;
 import gift.exception.InvalidJwtTokenException;
 import gift.exception.MissingJwtTokenException;
 import gift.exception.UserNotFoundException;
@@ -8,15 +7,11 @@ import gift.service.MemberService;
 import gift.util.JwtUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.core.MethodParameter;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
-import org.springframework.web.server.ResponseStatusException;
-
-import java.util.Optional;
 
 @Component
 public class LoginMemberArgumentResolver implements HandlerMethodArgumentResolver {
@@ -24,8 +19,7 @@ public class LoginMemberArgumentResolver implements HandlerMethodArgumentResolve
     private final MemberService memberService;
     private final JwtUtil jwtUtil;
 
-    public LoginMemberArgumentResolver(MemberService memberService,
-                                       JwtUtil jwtUtil) {
+    public LoginMemberArgumentResolver(MemberService memberService, JwtUtil jwtUtil) {
         this.memberService = memberService;
         this.jwtUtil = jwtUtil;
     }
@@ -40,8 +34,6 @@ public class LoginMemberArgumentResolver implements HandlerMethodArgumentResolve
                                   ModelAndViewContainer mavContainer,
                                   NativeWebRequest webRequest,
                                   WebDataBinderFactory binderFactory) throws Exception {
-
-
         HttpServletRequest request = webRequest.getNativeRequest(HttpServletRequest.class);
         String bearerToken = request.getHeader("Authorization");
 
@@ -55,9 +47,7 @@ public class LoginMemberArgumentResolver implements HandlerMethodArgumentResolve
             throw new InvalidJwtTokenException("유효하지 않은 JWT 토큰입니다.");
         }
 
-
         String email = jwtUtil.extractEmail(token);
-
 
         return memberService.findByEmail(email).orElseThrow(()-> new UserNotFoundException("사용자를 찾을 수 없습니다."));
     }

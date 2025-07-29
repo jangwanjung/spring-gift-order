@@ -16,11 +16,9 @@ public class OptionResponseDto {
         return id;
     }
 
-
     public String getName() {
         return name;
     }
-
 
     public Integer getQuantity() {
         return quantity;
