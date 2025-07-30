@@ -62,6 +62,8 @@ public class GlobalExceptionHandler {
                     .body("카카오 서비스 연결에 실패했습니다");
             case PARSE_ERROR -> ResponseEntity.status(HttpStatus.BAD_GATEWAY)
                     .body("카카오 응답 처리 중 오류가 발생했습니다");
+            case ACCESS_TOKEN_ERROR -> ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body("엑세스 토큰이 잘못되었습니다.");
         };
     }
 

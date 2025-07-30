@@ -6,7 +6,8 @@ public class KakaoApiException extends RuntimeException {
         CLIENT_ERROR,
         SERVER_ERROR,
         NETWORK_ERROR,
-        PARSE_ERROR
+        PARSE_ERROR,
+        ACCESS_TOKEN_ERROR,
     }
 
     private final ErrorType errorType;

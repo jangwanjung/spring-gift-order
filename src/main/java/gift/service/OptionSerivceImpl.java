@@ -55,7 +55,8 @@ public class OptionSerivceImpl implements OptionService{
         }
     }
 
-    private Option findOptionById(Long id) {
+    @Override
+    public Option findOptionById(Long id) {
         return optionRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"해당 옵션을 찾을 수 없습니다."));
     }
 }
