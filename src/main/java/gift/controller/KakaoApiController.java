@@ -1,9 +1,11 @@
 package gift.controller;
 
+import gift.LoginMember;
 import gift.dto.KakaoTokensResponseDto;
 import gift.dto.KakaoUserInfoResponseDto;
 import gift.dto.MemberRequestDto;
 import gift.dto.TokenResponseDto;
+import gift.entity.Member;
 import gift.service.KakaoApiService;
 import gift.service.MemberService;
 import gift.util.JwtUtil;
@@ -32,17 +34,11 @@ public class KakaoApiController {
     }
 
     @GetMapping("/login")
-    public ResponseEntity<TokenResponseDto> login(@RequestParam String code){
+    public ResponseEntity<String> login(@LoginMember Member member, @RequestParam String code){
 
         KakaoTokensResponseDto kakaoTokens = kakaoApiService.getKakaoTokens(code);
-        KakaoUserInfoResponseDto kakaoUserInfo = kakaoApiService.getKakaoUserInfo(kakaoTokens.getAccessToken());
-        String email = kakaoUserInfo.getId().toString()+ "@kakao.com";
-        MemberRequestDto memberRequestDto = new MemberRequestDto(email,kakaoMamberPassword);
 
-        if(!memberService.existMember(memberRequestDto)) {
-            memberService.saveMember(memberRequestDto);
-        }
-        String token = jwtUtil.generateToken(memberRequestDto);
-        return ResponseEntity.ok(new TokenResponseDto(token));
+        memberService.changeKakaoAccessToken(member,kakaoTokens.getAccessToken());
+        return ResponseEntity.ok("카카오 엑세스 토큰이 등록되었습니다.");
     }
 }

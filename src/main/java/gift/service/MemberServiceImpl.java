@@ -4,7 +4,9 @@ import gift.dto.MemberRequestDto;
 import gift.entity.Member;
 import gift.repository.MemberRepository;
 import gift.util.JwtUtil;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -34,5 +36,13 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public Optional<Member> findByEmail (String email) {
         return memberRepository.findByEmail(email);
+    }
+
+
+    @Override
+    @Transactional
+    public void changeKakaoAccessToken (Member member, String accessToken) {
+        member.changeKakaoAccessToken(accessToken);
+
     }
 }

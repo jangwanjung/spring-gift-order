@@ -22,6 +22,8 @@ public class Member {
     @OneToMany(mappedBy = "member")
     private List<WishList> wishLists;
 
+    private String kakaoAccessToken;
+
     public Member() {}
 
     public Member(String email, String password, String role) {
@@ -43,6 +45,14 @@ public class Member {
 
     public List<WishList> getWishLists() {
         return wishLists;
+    }
+
+    public void changeKakaoAccessToken(String kakaoAccessToken) {
+        this.kakaoAccessToken = kakaoAccessToken;
+    }
+
+    public String getKakaoAccessToken() {
+        return kakaoAccessToken;
     }
 
 

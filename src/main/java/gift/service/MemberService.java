@@ -12,4 +12,6 @@ public interface MemberService {
     boolean existMember(MemberRequestDto memberRequestDto);
 
     Optional<Member> findByEmail(String email);
+
+    void changeKakaoAccessToken (Member member, String accessToken);
 }
