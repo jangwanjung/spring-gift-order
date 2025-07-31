@@ -2,6 +2,7 @@ package gift.service;
 
 import gift.dto.OptionRequestDto;
 import gift.dto.OptionResponseDto;
+import gift.entity.Option;
 import gift.entity.Product;
 
 import java.util.List;
@@ -13,4 +14,6 @@ public interface OptionService {
     void checkDuplicatedOptionName(List<OptionRequestDto> optionRequestDtoList);
 
     OptionResponseDto sellOption(Long id, Integer sellQuantity);
+
+    Option findOptionById(Long id);
 }

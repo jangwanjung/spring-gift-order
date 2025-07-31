@@ -1,9 +1,7 @@
 package gift.service;
 
 import gift.config.KakaoProperties;
-import gift.dto.KakaoTokenRequestDto;
-import gift.dto.KakaoTokensResponseDto;
-import gift.dto.KakaoUserInfoResponseDto;
+import gift.dto.*;
 import gift.exception.KakaoApiException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -14,7 +12,9 @@ import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.retry.annotation.Backoff;
 import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestClient;
 
@@ -96,5 +96,28 @@ public class KakaoApiServiceImpl implements KakaoApiService {
         } catch (HttpMessageNotReadableException e) {
             throw new KakaoApiException(KakaoApiException.ErrorType.PARSE_ERROR, "카카오 사용자 정보 API 응답 파싱 실패", e);
         }
+    }
+
+    @Override
+    public void messageToMe(String accessToken, String text) {
+        try {
+            TemplateObject templateObject = new TemplateObject("text", text, "url", "바로 확인");
+
+
+            restClient.post()
+                    .uri(kakaoProperties.getMessageUrl())
+                    .header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken)
+                    .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                    .accept(MediaType.APPLICATION_JSON)
+                    .body(templateObject.makeBody())
+                    .retrieve()
+                    .toEntity(resultCode.class);
+
+        } catch (HttpClientErrorException e){
+            throw new KakaoApiException(KakaoApiException.ErrorType.ACCESS_TOKEN_ERROR,"엑세스 토큰이 잘못되었습니다.",e);
+        }
+
+
+
     }
 }

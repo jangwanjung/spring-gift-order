@@ -9,4 +9,6 @@ public interface KakaoApiService {
     KakaoTokensResponseDto getKakaoTokens(String code);
 
     KakaoUserInfoResponseDto getKakaoUserInfo(String accessToken);
+
+    void messageToMe(String accessToken, String message);
 }

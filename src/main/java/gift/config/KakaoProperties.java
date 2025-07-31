@@ -12,6 +12,15 @@ public class KakaoProperties {
     private String userInfoUrl;
     private int connectTimeout;
     private int readTimeout;
+    private String messageUrl;
+
+    public String getMessageUrl() {
+        return messageUrl;
+    }
+
+    public void setMessageUrl(String messageUrl) {
+        this.messageUrl = messageUrl;
+    }
 
     public String getApiKey() {
         return apiKey;
